@@ -1,6 +1,8 @@
 #include "engine.h"
 #include "logger/SpdLogManager.h"
 
+#include <mono/metadata/assembly.h>
+
 namespace gem
 {
 	Engine* Engine::mInstance = nullptr;
@@ -19,7 +21,7 @@ namespace gem
 		{
 			while (mIsRunning)
 			{
-
+				mMonoVM->Tick();
 			}
 
 			Shutdown();
@@ -29,6 +31,7 @@ namespace gem
 	bool Engine::Initialize()
 	{
 		mLogManager->Initialize();
+		mMonoVM->Initialize();
 
 		mLogManager->Trace("Engine initialized");
 
@@ -38,10 +41,14 @@ namespace gem
 	void Engine::Shutdown()
 	{
 		mLogManager->Shutdown();
+		mMonoVM->Shutdown();
 	}
 
 	Engine::Engine()
 	{
+		mIsRunning = true;
+
 		mLogManager = new logger::SpdLogManager();
+		mMonoVM = new mono::MonoVM();
 	}
 }

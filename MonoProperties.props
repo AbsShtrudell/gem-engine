@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>$(MONO_PROJECT)include/mono-2.0;$(IncludePath)</IncludePath>
+    <LibraryPath>$(MONO_PROJECT)lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(MONO_PROJECT)bin\mono-2.0-sgen.dll" "$(TargetDir)" /y
+xcopy "$(MONO_PROJECT)lib\mono\4.5\*" "$(TargetDir)\mono\4.5\" /e /y /i</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

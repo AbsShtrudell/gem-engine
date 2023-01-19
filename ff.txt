@@ -1,0 +1,2 @@
+xcopy "$(MONO_PROJECT)lib\mono\4.5\*" "$(TargetDir)\mono\4.5\" /e /y /i
+xcopy "$(MONO_PROJECT)lib\mono\4.8-api\*" "$(TargetDir)\mono\4.5\" /e /y /i

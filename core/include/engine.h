@@ -1,6 +1,7 @@
 #pragma once
 
 #include "logger/LogManager.h"
+#include "mono/monovm.h"
 
 namespace gem
 {
@@ -21,6 +22,7 @@ namespace gem
 		bool mIsRunning;
 
 		logger::LogManager* mLogManager;
+		mono::MonoVM* mMonoVM;
 
 		Engine();
 		static Engine* mInstance;
