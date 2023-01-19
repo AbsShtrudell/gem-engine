@@ -2,6 +2,7 @@
 //
 
 #include "core.h"
+#include <spdlog/spdlog.h>
 // TODO: Это пример библиотечной функции.
 void fncore()
 {
