@@ -1,2 +1,2 @@
-# gem_engine
-simple 3d engine
+# Gem Engine
+Simple 3d engine based on directx 11
