@@ -7,6 +7,7 @@
     <IntDir>$(SolutionDir)bin\intermediats\$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)external;$(SolutionDir);$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>..\Baseline.ruleset</CodeAnalysisRuleSet>
+    <PublicIncludeDirectories>$(ProjectDir)include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -15,7 +16,11 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

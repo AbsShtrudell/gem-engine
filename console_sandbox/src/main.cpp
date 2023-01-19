@@ -1,8 +1,10 @@
 #include <iostream>
 
-#include <core/src/core.h>
+#include <core/include/engine.h>
+
+using namespace gem;
 
 int main()
 {
-	std::cout << Test();
+	Engine::Instance().Run();
 }

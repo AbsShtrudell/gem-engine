@@ -11,10 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\core.cpp" />
+    <ClCompile Include="src\engine.cpp" />
+    <ClCompile Include="src\logger\SpdLogManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core.h" />
+    <ClInclude Include="include\engine.h" />
+    <ClInclude Include="include\logger\log.h" />
+    <ClInclude Include="include\logger\LogManager.h" />
+    <ClInclude Include="include\logger\SpdLogManager.h" />
+    <ClInclude Include="src\include\logger\log.h" />
+    <ClInclude Include="src\include\logger\SpdLogManager.h" />
+    <ClInclude Include="src\include\logger\LogManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
