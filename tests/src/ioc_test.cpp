@@ -2,9 +2,9 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace tests
+namespace gem::tests
 {
-	TEST_CLASS(tests)
+	TEST_CLASS(ioc_tests)
 	{
 	public:
 		

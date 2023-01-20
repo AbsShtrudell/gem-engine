@@ -1,5 +1,6 @@
 #include "engine.h"
 #include "logger/SpdLogManager.h"
+#include "ioc/container.h"
 
 namespace gem
 {

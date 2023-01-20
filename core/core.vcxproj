@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine.h" />
+    <ClInclude Include="include\ioc\container.h" />
     <ClInclude Include="include\logger\log.h" />
     <ClInclude Include="include\logger\LogManager.h" />
     <ClInclude Include="include\logger\SpdLogManager.h" />
