@@ -12,17 +12,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine.cpp" />
+    <ClCompile Include="src\ioc\singletons.cpp" />
     <ClCompile Include="src\logger\SpdLogManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine.h" />
     <ClInclude Include="include\ioc\container.h" />
+    <ClInclude Include="include\ioc\singletons.h" />
     <ClInclude Include="include\logger\log.h" />
     <ClInclude Include="include\logger\LogManager.h" />
     <ClInclude Include="include\logger\SpdLogManager.h" />
     <ClInclude Include="src\include\logger\log.h" />
     <ClInclude Include="src\include\logger\SpdLogManager.h" />
     <ClInclude Include="src\include\logger\LogManager.h" />
+    <ClInclude Include="src\ioc\container.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

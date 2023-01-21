@@ -85,7 +85,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ioc_test.cpp" />
+    <ClCompile Include="src\ioc_sinletons_test.cpp" />
+    <ClCompile Include="src\ioc_container_test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
