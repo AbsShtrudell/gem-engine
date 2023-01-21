@@ -25,13 +25,19 @@ public:
 	template<NotParameterized T>
 	void RegisterFactory(Generator<T> gen)
 	{
-		mFactoryMap[typeid(T)] = gen;
+		mFactoryMap[typeid(T)] = { State_::InstanceGenerator, std::move(gen) };
 	}
 
 	template<Parameterized T>
 	void RegisterFactory(ParameterizedGenerator<T> gen)
 	{
-		mFactoryMap[typeid(T)] = gen;
+		mFactoryMap[typeid(T)] = { State_::InstanceGenerator, std::move(gen) };
+	}
+	
+	template<class T>
+	void RegisterSingleton(Generator<T> gen)
+	{
+		mFactoryMap[typeid(T)] = { State_::SingletonGenerator, std::move(gen) };
 	}
 
 	template<NotParameterized T>
@@ -46,9 +52,6 @@ public:
 		return Resolve_<T, ParameterizedGenerator<T>>(std::forward<typename T::IoCParams>(params));
 	}
 
-protected:
-	Container() = default;
-
 	//avaliable only for friend classes: installers
 	static Container& Get()
 	{
@@ -56,19 +59,55 @@ protected:
 		return c;
 	}
 
+protected:
+	Container() = default;
+
 private:
+	enum class State_
+	{
+		InstanceGenerator,
+		SingletonGenerator,
+		SingletonInstance,
+	};
+	struct Entry_
+	{
+		State_ state;
+		std::any content;
+	};
+
 	template<class T, class G, class...Ps>
 	std::shared_ptr<T> Resolve_(Ps...arg)
 	{
 		if (const auto i = mFactoryMap.find(typeid(T)); i != mFactoryMap.end())
 		{
+			auto& entry = i->second;
+
+			if (entry.state != State_::InstanceGenerator && sizeof...(Ps) > 0) {
+				throw std::runtime_error { "Parameters passed in while resolving singleton"}
+			}
+
 			try {
-				return std::any_cast<G>(i->second)(std::forward<Ps>(arg)...);
+				std::shared_ptr<T> ptr;
+
+				switch (entry.state) {
+				case State_::InstanceGenerator:
+					ptr = std::any_cast<G>(entry.content)(std::forward<Ps>(arg)...);
+					break;
+				case State_::SingletonGenerator:
+					ptr = std::any_cast<G>(entry.content)(std::forward<Ps>(arg)...);
+					entry.content = ptr;
+					entry.state = State_::SingletonInstance;
+					break;
+				case State_::SingletonInstance:
+					ptr = std::any_cast<std::shared_ptr<T>>(entry.content);
+					break;
+				}
+				return ptr;
 			}
 			catch (const std::bad_any_cast&) {
 				throw std::runtime_error{ std::format(
 					"Could not resolve Services mapped type\nfrom: [{}]\n to [{}]\n",
-					i->second.type().name(), typeid(G).name()
+					entry.content.type().name(), typeid(G).name()
 				) };
 			}
 		}
@@ -78,7 +117,6 @@ private:
 		}
 	}
 
-	std::unordered_map<std::type_index, std::any> mFactoryMap;
-
+	std::unordered_map<std::type_index, Entry_> mFactoryMap;
 };
 
